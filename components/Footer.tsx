@@ -10,7 +10,7 @@ export function Footer() {
             BODY EVOLUTION
           </div>
           <p className="text-neutral-500 leading-relaxed max-w-xs">
-            Forging elite performance through kinetic movement and intense discipline since 2024.
+            Forging elite performance through kinetic movement and intense discipline since 2026.
           </p>
         </div>
         <div>
@@ -44,7 +44,7 @@ export function Footer() {
         </div>
       </div>
       <div className="max-w-screen-2xl mx-auto px-8 py-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-        <p className="text-neutral-500 text-xs">© 2024 KINETIC INTENSITY. ALL RIGHTS RESERVED.</p>
+        <p className="text-neutral-500 text-xs">© 2026 BODY EVOLUTION. ALL RIGHTS RESERVED.</p>
         <div className="flex gap-8">
           <span className="text-neutral-600 text-xs uppercase font-bold tracking-widest">Built For Strength</span>
           <span className="text-neutral-600 text-xs uppercase font-bold tracking-widest">Designed For Speed</span>

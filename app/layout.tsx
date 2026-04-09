@@ -15,8 +15,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "KINETIC | Kinetic Intensity",
-  description: "Gym landing page with kinetic intensity",
+  title: "Body Evolution",
+  description: "Gym landing page with body evolution",
 };
 
 export default function RootLayout({
