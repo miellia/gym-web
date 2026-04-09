@@ -1,0 +1,507 @@
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KINETIC | Kinetic Intensity</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e0e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.05) 0%, rgba(14, 14, 14, 1) 70%);
+        }
+        .text-accent { color: #00FF88; }
+        .bg-accent { background-color: #00FF88; }
+        .border-accent { border-color: #00FF88; }
+        
+        /* Micro-interactions */
+        .smooth-zoom { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .smooth-zoom:hover { transform: scale(1.05); }
+        
+        .card-lift { transition: all 0.3s ease; }
+        .card-lift:hover { transform: translateY(-8px); }
+        
+        .btn-glow-hover:hover { 
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4); 
+            transform: scale(1.03);
+        }
+
+        .hover-glow:hover { box-shadow: 0 0 25px rgba(0, 255, 136, 0.15); border-color: rgba(0, 255, 136, 0.3); }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .hero-carousel-transition {
+            background: linear-gradient(to bottom, #0e0e0e 0%, rgba(14, 14, 14, 0.8) 50%, #0e0e0e 100%);
+        }
+
+        /* Video Background Styling */
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .video-container video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(14, 14, 14, 0.4) 0%, rgba(14, 14, 14, 0.95) 100%);
+            z-index: 1;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-accent": "#00FF88",
+                        "on-primary": "#006532",
+                        "secondary": "#72fbbd",
+                        "error": "#ff716c",
+                        "primary-fixed-dim": "#00FF88",
+                        "surface": "#0e0e0e",
+                        "secondary-dim": "#63ecaf",
+                        "on-primary-container": "#000000",
+                        "primary-fixed": "#00FF88",
+                        "tertiary-fixed-dim": "#00cdee",
+                        "tertiary-dim": "#00cdee",
+                        "surface-container-lowest": "#000000",
+                        "on-surface-variant": "#adaaaa",
+                        "inverse-on-surface": "#565554",
+                        "surface-variant": "#262626",
+                        "secondary-fixed": "#72fbbd",
+                        "on-tertiary-container": "#004956",
+                        "on-primary-fixed-variant": "#006632",
+                        "surface-tint": "#00FF88",
+                        "on-secondary-container": "#e1ffeb",
+                        "on-secondary": "#005e3e",
+                        "error-container": "#9f0519",
+                        "primary-container": "#00FF88",
+                        "inverse-primary": "#006e37",
+                        "outline-variant": "#494847",
+                        "surface-container-high": "#201f1f",
+                        "error-dim": "#d7383b",
+                        "tertiary": "#7ee6ff",
+                        "surface-container-low": "#131313",
+                        "surface-bright": "#2c2c2c",
+                        "inverse-surface": "#fcf8f8",
+                        "surface-container-highest": "#262626",
+                        "on-primary-fixed": "#000000",
+                        "surface-dim": "#0e0e0e",
+                        "on-error": "#490006",
+                        "on-tertiary-fixed-variant": "#005361",
+                        "on-secondary-fixed-variant": "#006946",
+                        "tertiary-container": "#00dcff",
+                        "on-tertiary-fixed": "#00333d",
+                        "on-surface": "#ffffff",
+                        "on-error-container": "#ffa8a3",
+                        "outline": "#777575",
+                        "on-background": "#ffffff",
+                        "background": "#0e0e0e",
+                        "primary": "#00FF88",
+                        "surface-container": "#1a1919",
+                        "secondary-fixed-dim": "#63ecaf",
+                        "primary-dim": "#00FF88",
+                        "secondary-container": "#006c49",
+                        "on-tertiary": "#005361",
+                        "tertiary-fixed": "#00dcff",
+                        "on-secondary-fixed": "#004930"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.25rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-neutral-950/40 backdrop-blur-xl border-b border-white/5">
+<div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto font-space-grotesk tracking-tighter uppercase">
+<div class="text-2xl font-black text-accent tracking-tighter">KINETIC</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-accent border-b-2 border-accent pb-1 hover:scale-105 transition-all" href="#">Home</a>
+<a class="text-neutral-400 hover:text-white transition-colors hover:scale-105" href="#">Pricing</a>
+<a class="text-neutral-400 hover:text-white transition-colors hover:scale-105" href="#">Trainers</a>
+<a class="text-neutral-400 hover:text-white transition-colors hover:scale-105" href="#">Contact</a>
+</div>
+<button class="bg-primary-container text-black px-6 py-2 rounded-2xl font-bold btn-glow-hover transition-all active:scale-95 duration-200">Join Now</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-black text-center">
+<!-- Full Bleed Video Background -->
+<div class="video-container">
+<video autoplay="" loop="" muted="" playsinline="">
+<source src="https://assets.mixkit.co/videos/preview/mixkit-strong-man-training-with-dumbbells-in-the-gym-4835-large.mp4" type="video/mp4"/>
+</video>
+<div class="video-overlay"></div>
+</div>
+<div class="max-w-4xl mx-auto w-full px-8 relative z-20 pt-20">
+<h1 class="text-6xl md:text-9xl font-black font-space-grotesk leading-[0.9] tracking-tighter uppercase mb-10 text-white">
+                TRANSFORM YOUR BODY <br/> BUILD YOUR <span class="text-primary-fixed drop-shadow-[0_0_30px_rgba(0,255,136,0.6)]">STRENGTH</span>
+</h1>
+<p class="text-white/80 text-xl md:text-2xl mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
+                No commitment • Cancel anytime. Start your journey with the elite 1% of strength athletes.
+            </p>
+<div class="flex flex-wrap justify-center gap-6">
+<button class="bg-accent text-black px-12 py-6 rounded-2xl font-black text-xl uppercase btn-glow-hover transition-all">Get Free Trial</button>
+<button class="bg-white/10 border border-white/30 text-white px-12 py-6 rounded-2xl font-black text-xl uppercase hover:bg-white/20 transition-all hover:scale-[1.03]">View Plans</button>
+</div>
+</div>
+<!-- Hero Carousel Section integrated into bottom of Hero -->
+<div class="w-full pb-16 pt-32 relative z-10">
+<div class="absolute inset-x-0 -top-24 h-48 hero-carousel-transition pointer-events-none"></div>
+<div class="relative max-w-4xl mx-auto overflow-hidden group/carousel border-2 border-accent rounded-3xl w-full border-x-0">
+<div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide"><div class="min-w-full snap-center relative overflow-hidden">
+<div class="absolute inset-0 bg-black/40 z-10"></div>
+<img alt="Gym Intensity Collection" class="w-full h-auto object-cover smooth-zoom" src="https://lh3.googleusercontent.com/aida/ADBb0ug9RcCKJ8uKL0fTvPgwDvFJFGx1rWPZypuAsMD_UgMFeqBrg-KsWVz7Ij6_z7SSVrF_LSZ6eNk09zTVloqGVLbgVUcaoUeC0tu6X6TfsKeXaejxanvwRmAItwoM9jn3FCqg2w9k_BV_0lN1aMXIQ3eM5ocXoyP32ZDWoe7wyYjl70hhESTqvGjYjB6iwlQSVASH71epOji8CslvxZnAuHlX0AkTR3qZTVjt-MRK7GGilm3vR53RG4a3OxIII8TFQecoqIVQyD0s"/>
+</div></div>
+</div>
+</div>
+</section>
+<!-- Membership Plans -->
+<section class="py-32 bg-surface-container-low">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="flex flex-col items-center mb-24 text-center">
+<h2 class="text-5xl md:text-6xl font-black font-space-grotesk tracking-tighter uppercase leading-none mb-6">Choose Your <span class="text-accent">Intensity</span></h2>
+<p class="text-on-surface-variant max-w-md">Flexible tiers designed for every stage of your physical evolution.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+<!-- Basic -->
+<div class="bg-surface-container-highest p-10 rounded-2xl border border-outline-variant/10 hover-glow transition-all card-lift">
+<span class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Essential</span>
+<div class="text-5xl font-black font-space-grotesk my-8">$49<span class="text-lg text-on-surface-variant">/mo</span></div>
+<ul class="space-y-5 mb-12">
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-accent" data-weight="fill">check_circle</span> 24/7 Gym Access
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-accent" data-weight="fill">check_circle</span> Basic Locker Access
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-accent" data-weight="fill">check_circle</span> Free WiFi
+                        </li>
+</ul>
+<button class="w-full py-4 border border-outline-variant text-white rounded-2xl font-bold hover:bg-white/5 hover:scale-[1.03] transition-all">Select Plan</button>
+</div>
+<!-- Popular -->
+<div class="bg-surface-container-highest p-12 rounded-2xl border-2 border-primary-fixed shadow-[0_0_50px_rgba(0,255,136,0.15)] scale-105 relative z-10 card-lift">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary-fixed text-black text-xs font-black px-4 py-1 rounded-full uppercase">Most Popular</div>
+<span class="text-sm font-bold uppercase tracking-widest text-accent">Elite Performance</span>
+<div class="text-6xl font-black font-space-grotesk my-8">$89<span class="text-lg text-on-surface-variant">/mo</span></div>
+<ul class="space-y-5 mb-12">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span> All Essential Features
+                        </li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span> Unlimited Group Classes
+                        </li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span> 1 Personal Training Session
+                        </li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-accent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span> Recovery Zone Access
+                        </li>
+</ul>
+<button class="w-full py-4 bg-primary-container text-black rounded-2xl font-black text-lg uppercase btn-glow-hover transition-all">Get Started</button>
+</div>
+<!-- Pro -->
+<div class="bg-surface-container-highest p-10 rounded-2xl border border-outline-variant/10 hover-glow transition-all card-lift">
+<span class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Kinetic Pro</span>
+<div class="text-5xl font-black font-space-grotesk my-8">$149<span class="text-lg text-on-surface-variant">/mo</span></div>
+<ul class="space-y-5 mb-12">
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-accent" data-weight="fill">check_circle</span> All Elite Features
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-accent" data-weight="fill">check_circle</span> 4 Training Sessions /mo
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-accent" data-weight="fill">check_circle</span> Nutrition Coaching
+                        </li>
+</ul>
+<button class="w-full py-4 border border-outline-variant text-white rounded-2xl font-bold hover:bg-white/5 hover:scale-[1.03] transition-all">Select Plan</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Trainers Section -->
+<section class="py-32 bg-surface">
+<div class="max-w-screen-2xl mx-auto px-8">
+<h2 class="text-5xl font-black font-space-grotesk uppercase tracking-tighter mb-24 text-center">Engineered for <span class="text-accent">Performance</span></h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Trainer 1 -->
+<div class="group relative overflow-hidden rounded-2xl aspect-[3/4] card-lift">
+<img alt="Coach Marcus" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 smooth-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWk_-lTvtQCTo4EV1P3r0XlUSP70u8fiXZRsB313FafcmE6Ce4lu8b3fdGAE8WV1fA7WeAPauyaKVkHCMJdXrmVy_3yCsTe7HELdXY6n404oT1qV3M3-vzG0QqJHEQ1ywblLQEpYlvEXNFBcdU1AQ8knsFHazPcVxbPXx4u2bEQGp7Zjd9yhjVHG4AKmW1x7iD9naDSBnIE6-6hR5gdnVlBUf1y6DP9qagh6pbcaqL5h1Uv7-MN91LzzdE1_-UzYWS_SFTQdYVRQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
+<h4 class="text-2xl font-black font-space-grotesk uppercase">Marcus Thorne</h4>
+<p class="text-primary-fixed font-bold text-sm mb-4">Elite Powerlifting</p>
+<p class="text-on-surface-variant text-sm opacity-0 group-hover:opacity-100 transition-opacity">12+ years of high-performance coaching.</p>
+</div>
+</div>
+<!-- Trainer 2 -->
+<div class="group relative overflow-hidden rounded-2xl aspect-[3/4] card-lift">
+<img alt="Coach Sarah" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 smooth-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC20L2vD-wOCoUtSi529rZ8BmkkCiWKf9FHe4bD2_bZ9lQZHlxRyS6MfQtYRgYYFvTapYz240G-qcDqz8N74p8nCTjRPOeiRR9cCZ_YVBISQrOi6rQp6jPUq1r2qIlaGjBupkzyB2cPNyBAbZWzetWBDL0NXrOqx6svjl_PvxY4kHa-aFurmHVk1Qy_KBT4cPPdiKEGG7qZ7ZaEfAWwcMGpJYiHUcNY5QL1zPDR0XqE65kZtEdqL6W2XdirzA8i8jRGdNCNAPQC2g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
+<h4 class="text-2xl font-black font-space-grotesk uppercase">Sarah Jenkins</h4>
+<p class="text-primary-fixed font-bold text-sm mb-4">Functional Strength</p>
+<p class="text-on-surface-variant text-sm opacity-0 group-hover:opacity-100 transition-opacity">Certified CrossFit L3 specialist.</p>
+</div>
+</div>
+<!-- Trainer 3 -->
+<div class="group relative overflow-hidden rounded-2xl aspect-[3/4] card-lift">
+<img alt="Coach David" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 smooth-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAKmoMH7i7kPrsR020AbyixIBVsIXZVHw58U2yRDJcpBswFGCZyr1rXXlonI8zs0XLvFh55QQv72-TgAePtCP4FdOP2i6hNyATXH2j7VC9WbPq9hS8zAhH9IIgD28UPpC5KpX0mV7BidtYKrOYiBu17kLJQ-PbCnR2xbPcLdQCAHIvRmuolw76BvQBxBzv75Bk6diqxnZc0wgPjC4FXnNmoQ-3XC36fQYAY6Et5qJFq7jgrc_6wobPeDmoYjWhJy7yMRoT8ZdyaQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
+<h4 class="text-2xl font-black font-space-grotesk uppercase">David Vane</h4>
+<p class="text-primary-fixed font-bold text-sm mb-4">Body Composition</p>
+<p class="text-on-surface-variant text-sm opacity-0 group-hover:opacity-100 transition-opacity">Specializing in metabolic transformation.</p>
+</div>
+</div>
+<!-- Trainer 4 -->
+<div class="group relative overflow-hidden rounded-2xl aspect-[3/4] card-lift">
+<img alt="Coach Elena" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 smooth-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh2Otyf8IPAhOYzni3o2Pj-K710Ro43HhJ5ln9x2JJFZYNcISrt8P_DrvpAnxufETJNQ8_XZFEiMXNZ0R2IhO3WXSBpHmPS6PRFGMTkOo6Bp6dFWwBivz8ok3EDAJO-kcZjA7ajejFAc-yV9pb0LGEM17zQk1aiAvGsCkM2V1Y1c0hgXX3i3rgaYf0aVcTbUyobcz-_Xz7AjkWSuHhhzOcFXsmpVaGwVbANWn7ZtH28pSKrDd4OglJrvTbqFuCoUs0xfnTeXACVA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
+<h4 class="text-2xl font-black font-space-grotesk uppercase">Elena Rossi</h4>
+<p class="text-primary-fixed font-bold text-sm mb-4">Mobility &amp; Flow</p>
+<p class="text-on-surface-variant text-sm opacity-0 group-hover:opacity-100 transition-opacity">Expert in athletic recovery and joint health.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section class="py-32 bg-surface-container-low overflow-hidden">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="flex justify-center mb-6"><span class="material-symbols-outlined text-accent text-7xl opacity-20" style="font-variation-settings: 'FILL' 1;">format_quote</span></div><h2 class="text-5xl font-black font-space-grotesk uppercase tracking-tighter mb-20 text-center">The <span class="text-accent">Voice</span> of Kinetic</h2>
+<div class="flex gap-16 overflow-x-auto pb-12 scrollbar-hide">
+<!-- Card 1 -->
+<div class="min-w-[500px] h-[450px] flex flex-col justify-between bg-surface-container-highest p-14 rounded-2xl border border-outline-variant/10 card-lift hover-glow transition-all">
+<div>
+<div class="flex gap-1 text-accent mb-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-2xl italic text-white/90 leading-relaxed font-medium">"The atmosphere here is unmatched. It's not just a gym; it's a high-performance lab. My strength has <span class="text-accent font-black not-italic border-b-2 border-accent/30 pb-1">doubled in 4 months</span>."</p>
+</div>
+<div class="flex items-center gap-5">
+<div class="w-16 h-16 bg-accent rounded-full overflow-hidden border-2 border-accent/20">
+<img alt="Member" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXMGDeiNrpeC-umodwQ2K2cVphTZr-NP6aZ3clhfkPpgZ1K4m0e5A6hg8RFZVYBPC2aVjY69pE5k3I53aqubVabPCt--d6ki5HY1J8p-oCuI4DLBI3PdQYoX2Xgs1pohtaB06ZkMnegDCd9YLYUEec5JnaLtgVdV4a0VEbGLFjvk7imX8dRi-B_79aJi1rhD81EGNWKgILI_QmgPhzfmh04JIwvOwlHx1m_j-WXdHERamrAwxPqmFRvj8Qqe9POS_1UeC56ZNSJg"/>
+</div>
+<div>
+<p class="font-black font-space-grotesk uppercase text-lg">Arthur Morgan</p>
+<p class="text-xs text-on-surface-variant font-bold tracking-widest uppercase">Elite Member</p>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[500px] h-[450px] flex flex-col justify-between bg-surface-container-highest p-14 rounded-2xl border border-outline-variant/10 card-lift hover-glow transition-all">
+<div>
+<div class="flex gap-1 text-accent mb-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-2xl italic text-white/90 leading-relaxed font-medium">"The coaches are true professionals. They understand the science of movement. I've <span class="text-accent font-black not-italic border-b-2 border-accent/30 pb-1">lost 20kg</span> and gained total body control."</p>
+</div>
+<div class="flex items-center gap-5">
+<div class="w-16 h-16 bg-accent rounded-full overflow-hidden border-2 border-accent/20">
+<img alt="Member" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPEO1tv_WQlttYNjZzbtDfGkr03earLPuACV7bVq541JdmeAeGyAgZLtAK8swblnuEodlg1qr37MS925c9HTV0vngdIB5CI_sfB9SLgOYmSf5ZN_YlQvYCFC4h4J76q-8TT3daQuMZneM0IzAhGumuPQK6Hfz-LI7YVp1Jbn9gPwZrg_gQl_i5t20UtPHGMqJ2f7-YVY8ZPFZ_pr4ZRMqSwEROmIiE9tx-CXPWV3_XixMH3HTXz3cMrySofbFPy0Ck-qjTNlALDQ"/>
+</div>
+<div>
+<p class="font-black font-space-grotesk uppercase text-lg">Isabella Swan</p>
+<p class="text-xs text-on-surface-variant font-bold tracking-widest uppercase">Pro Athlete</p>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[500px] h-[450px] flex flex-col justify-between bg-surface-container-highest p-14 rounded-2xl border border-outline-variant/10 card-lift hover-glow transition-all">
+<div>
+<div class="flex gap-1 text-accent mb-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-2xl italic text-white/90 leading-relaxed font-medium">"Best recovery facilities I've ever used. The contrast baths and infrared sauna are <span class="text-accent font-black not-italic border-b-2 border-accent/30 pb-1">game changers</span> for my training cycle."</p>
+</div>
+<div class="flex items-center gap-5">
+<div class="w-16 h-16 bg-accent rounded-full overflow-hidden border-2 border-accent/20">
+<img alt="Member" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMv2-L7s3cxfnOpPV7iz0p3n1sPylHWooMPPnHZpC7ZNcMoWpLjVViSQ_FlG_9aClB3nFLEIe7bPSjH_z2nLVTV-yaMZo--pyv2VI0lJ4B2aCE4o2G2JqI6bf1MHHtO33stW1UX33xTSaJpFjDjmEuwQtm1F9hHIySyzIItdrEE42qDzAwG1acY_9qsCAKhoqT-05sGMUbRx16jKw-EQc1y-EG72wo25zy-1L3wtocVPjkwCVIHwRdAT2n37T-Q5n5hV14C3O3EA"/>
+</div>
+<div>
+<p class="font-black font-space-grotesk uppercase text-lg">Marcus Fenix</p>
+<p class="text-xs text-on-surface-variant font-bold tracking-widest uppercase">Performance Member</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Lead Capture Section -->
+<section class="py-32 bg-surface">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="bg-gradient-to-br from-[#00FF88]/40 to-[#006532]/20 rounded-2xl p-16 md:p-32 flex flex-col lg:flex-row gap-20 items-center shadow-[0_0_100px_rgba(0,255,136,0.05)] border border-white/5">
+<div class="flex-1">
+<h2 class="text-5xl md:text-7xl font-black font-space-grotesk text-white leading-[0.9] uppercase tracking-tighter mb-10">Start Your <br/> Fitness <br/> Journey Today</h2>
+<p class="text-white/80 text-xl font-bold max-w-sm">Join the elite few who push past their limits. First session is on us.</p>
+</div>
+<div class="flex-1 w-full bg-black/40 p-12 md:p-16 rounded-3xl backdrop-blur-md border border-white/10 shadow-2xl">
+<form class="space-y-10">
+<div class="space-y-3">
+<label class="text-white/60 font-black uppercase text-xs tracking-widest px-2">Full Name</label>
+<input class="w-full bg-white/5 border border-white/10 rounded-2xl py-6 px-8 text-white placeholder:text-white/20 focus:ring-2 focus:ring-accent focus:bg-white/10 transition-all outline-none" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-3">
+<label class="text-white/60 font-black uppercase text-xs tracking-widest px-2">Phone Number</label>
+<input class="w-full bg-white/5 border border-white/10 rounded-2xl py-6 px-8 text-white placeholder:text-white/20 focus:ring-2 focus:ring-accent focus:bg-white/10 transition-all outline-none" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="space-y-3">
+<label class="text-white/60 font-black uppercase text-xs tracking-widest px-2">Message</label>
+<textarea class="w-full bg-white/5 border border-white/10 rounded-2xl py-6 px-8 text-white placeholder:text-white/20 focus:ring-2 focus:ring-accent focus:bg-white/10 transition-all outline-none" placeholder="I'm interested in the Elite Performance plan..." rows="4"></textarea>
+</div>
+<button class="w-full bg-accent text-black py-6 rounded-2xl font-black uppercase text-xl btn-glow-hover transition-all shadow-xl shadow-black/20">Send Request</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Location / Contact -->
+<section class="py-32 bg-surface-container-low">
+<div class="max-w-screen-2xl mx-auto px-8 flex flex-col items-center">
+<div class="text-center mb-16">
+<h2 class="text-5xl md:text-6xl font-black font-space-grotesk uppercase tracking-tighter">The <span class="text-accent">Hub</span></h2>
+<p class="text-on-surface-variant mt-4 font-bold tracking-widest uppercase text-xs">Our Global Performance Headquarters</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
+<div class="flex flex-col justify-center space-y-12">
+<div class="flex items-start gap-6 group">
+<div class="w-16 h-16 bg-surface-container-highest rounded-2xl flex items-center justify-center border border-outline-variant/10 text-accent transition-all group-hover:bg-accent group-hover:text-black shrink-0">
+<span class="material-symbols-outlined text-3xl">location_on</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-bold uppercase tracking-widest text-xs mb-1">Address</p>
+<p class="text-xl font-space-grotesk font-bold">124 Performance Ave, Suite 500<br/>New York, NY 10001</p>
+</div>
+</div>
+<div class="flex items-start gap-6 group">
+<div class="w-16 h-16 bg-surface-container-highest rounded-2xl flex items-center justify-center border border-outline-variant/10 text-accent transition-all group-hover:bg-accent group-hover:text-black shrink-0">
+<span class="material-symbols-outlined text-3xl">mail</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-bold uppercase tracking-widest text-xs mb-1">Inquiries</p>
+<p class="text-xl font-space-grotesk font-bold">hello@kinetic-intensity.com</p>
+</div>
+</div>
+<div class="flex items-start gap-6 group">
+<div class="w-16 h-16 bg-surface-container-highest rounded-2xl flex items-center justify-center border border-outline-variant/10 text-accent transition-all group-hover:bg-accent group-hover:text-black shrink-0">
+<span class="material-symbols-outlined text-3xl">schedule</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-bold uppercase tracking-widest text-xs mb-1">Hours</p>
+<p class="text-xl font-space-grotesk font-bold">Mon - Fri: 05:00 - 00:00<br/>Sat - Sun: 07:00 - 22:00</p>
+</div>
+</div>
+</div>
+<div class="rounded-2xl overflow-hidden grayscale brightness-75 border border-outline-variant/10 min-h-[450px]">
+<div class="w-full h-full bg-surface-container-highest flex items-center justify-center relative">
+<img alt="Stylized dark map view showing downtown city layout" class="absolute inset-0 w-full h-full object-cover opacity-30 smooth-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrVERLHsiBC2djVQiuNFR-c7ihgWroUXc3c6G81uec2F96wixUrERGTMZdbTaAQ6Y2cjVY4pDOqAbhSUZiK1M2ZvnhG5GwHKtjqAObzimPbyXLK-6xUgPRuATYCeTgACKWD8xkivzQrO17etvKACIzVxhrHhze5pRH0IILFeSr4HCXq7OK000-z1X1bFPl2Y9Govy2oEi9EIFf7CbGp6x8abP0aZBQ3qQ5n-KxKiwKv5x0foFHuIbHe9uUefWMesqZAXBi1A2jkw"/>
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-14 h-14 bg-accent rounded-full animate-pulse shadow-[0_0_40px_rgba(0,255,136,1)] mb-4"></div>
+<span class="text-on-surface font-black font-space-grotesk uppercase tracking-widest text-lg">Kinetic NY HQ</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-neutral-950 border-t border-white/10">
+<div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 py-20 px-8 font-inter text-sm tracking-wide">
+<div class="md:col-span-1">
+<div class="text-2xl font-black text-white mb-8 uppercase tracking-tighter">KINETIC</div>
+<p class="text-neutral-500 leading-relaxed max-w-xs">Forging elite performance through kinetic movement and intense discipline since 2024.</p>
+</div>
+<div>
+<h4 class="text-white font-black uppercase mb-8 tracking-widest text-xs">Resources</h4>
+<ul class="space-y-5">
+<li><a class="text-neutral-500 hover:text-accent hover:translate-x-1 transition-all inline-block" href="#">Privacy Policy</a></li>
+<li><a class="text-neutral-500 hover:text-accent hover:translate-x-1 transition-all inline-block" href="#">Terms of Service</a></li>
+<li><a class="text-neutral-500 hover:text-accent hover:translate-x-1 transition-all inline-block" href="#">FAQ</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-black uppercase mb-8 tracking-widest text-xs">Follow Us</h4>
+<ul class="space-y-5">
+<li><a class="text-neutral-500 hover:text-accent hover:translate-x-1 transition-all inline-block" href="#">Instagram</a></li>
+<li><a class="text-neutral-500 hover:text-accent hover:translate-x-1 transition-all inline-block" href="#">YouTube</a></li>
+<li><a class="text-neutral-500 hover:text-accent hover:translate-x-1 transition-all inline-block" href="#">X (Twitter)</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-black uppercase mb-8 tracking-widest text-xs">Newsletter</h4>
+<div class="relative group">
+<input class="w-full bg-surface-container-highest border border-outline-variant/20 rounded-2xl py-4 px-5 text-white focus:ring-2 focus:ring-accent transition-all placeholder:text-neutral-600" placeholder="Enter Email" type="email"/>
+<button class="absolute right-3 top-2.5 bg-accent text-black w-10 h-10 rounded-xl flex items-center justify-center hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-sm font-black">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-screen-2xl mx-auto px-8 py-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-neutral-500 text-xs">© 2024 KINETIC INTENSITY. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-8">
+<span class="text-neutral-600 text-xs uppercase font-bold tracking-widest">Built For Strength</span>
+<span class="text-neutral-600 text-xs uppercase font-bold tracking-widest">Designed For Speed</span>
+</div>
+</div>
+</footer>
+</body></html>

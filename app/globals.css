@@ -1,26 +1,185 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: #0e0e0e;
+  --color-foreground: #ffffff;
+  
+  --color-primary-accent: #00FF88;
+  --color-on-primary: #006532;
+  --color-secondary: #72fbbd;
+  --color-error: #ff716c;
+  --color-primary-fixed-dim: #00FF88;
+  --color-surface: #0e0e0e;
+  --color-secondary-dim: #63ecaf;
+  --color-on-primary-container: #000000;
+  --color-primary-fixed: #00FF88;
+  --color-tertiary-fixed-dim: #00cdee;
+  --color-tertiary-dim: #00cdee;
+  --color-surface-container-lowest: #000000;
+  --color-on-surface-variant: #adaaaa;
+  --color-inverse-on-surface: #565554;
+  --color-surface-variant: #262626;
+  --color-secondary-fixed: #72fbbd;
+  --color-on-tertiary-container: #004956;
+  --color-on-primary-fixed-variant: #006632;
+  --color-surface-tint: #00FF88;
+  --color-on-secondary-container: #e1ffeb;
+  --color-on-secondary: #005e3e;
+  --color-error-container: #9f0519;
+  --color-primary-container: #00FF88;
+  --color-inverse-primary: #006e37;
+  --color-outline-variant: #494847;
+  --color-surface-container-high: #201f1f;
+  --color-error-dim: #d7383b;
+  --color-tertiary: #7ee6ff;
+  --color-surface-container-low: #131313;
+  --color-surface-bright: #2c2c2c;
+  --color-inverse-surface: #fcf8f8;
+  --color-surface-container-highest: #262626;
+  --color-on-primary-fixed: #000000;
+  --color-surface-dim: #0e0e0e;
+  --color-on-error: #490006;
+  --color-on-tertiary-fixed-variant: #005361;
+  --color-on-secondary-fixed-variant: #006946;
+  --color-tertiary-container: #00dcff;
+  --color-on-tertiary-fixed: #00333d;
+  --color-on-surface: #ffffff;
+  --color-on-error-container: #ffa8a3;
+  --color-outline: #777575;
+  --color-on-background: #ffffff;
+  --color-background-custom: #0e0e0e;
+  --color-primary: #00FF88;
+  --color-surface-container: #1a1919;
+  --color-secondary-fixed-dim: #63ecaf;
+  --color-primary-dim: #00FF88;
+  --color-secondary-container: #006c49;
+  --color-on-tertiary: #005361;
+  --color-tertiary-fixed: #00dcff;
+  --color-on-secondary-fixed: #004930;
+  --color-accent: #00FF88;
+
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-inter: var(--font-inter);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@utility space-grotesk {
+  font-family: var(--font-space-grotesk);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@utility inter {
+  font-family: var(--font-inter);
+}
+
+@utility font-space-grotesk {
+  font-family: var(--font-space-grotesk);
+}
+
+@utility text-accent {
+  color: var(--color-accent);
+}
+
+@utility bg-accent {
+  background-color: var(--color-accent);
+}
+
+@utility border-accent {
+  border-color: var(--color-accent);
+}
+
+/* Micro-interactions */
+@utility smooth-zoom {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    transform: scale(1.05);
   }
 }
 
+@utility card-lift {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-8px);
+  }
+}
+
+@utility btn-glow-hover {
+  &:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+    transform: scale(1.03);
+  }
+}
+
+@utility hover-glow {
+  &:hover {
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.15);
+    border-color: rgba(0, 255, 136, 0.3);
+  }
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome Safari and Opera */
+  }
+}
+
+@utility hero-carousel-transition {
+  background: linear-gradient(
+    to bottom,
+    #0e0e0e 0%,
+    rgba(14, 14, 14, 0.8) 50%,
+    #0e0e0e 100%
+  );
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+.video-container video {
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(14, 14, 14, 0.4) 0%,
+    rgba(14, 14, 14, 0.95) 100%
+  );
+  z-index: 1;
+}
+
+@layer utilities {
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
 }
